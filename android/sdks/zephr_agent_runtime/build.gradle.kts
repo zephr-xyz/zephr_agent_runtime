@@ -13,7 +13,6 @@ import org.gradle.api.tasks.TaskAction
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("maven-publish")
 }
 
 val platformVersions: CharSequence = providers.fileContents(rootProject.layout.projectDirectory.file("../platform_versions.json"))
@@ -25,6 +24,9 @@ abstract class SyncAssetDirectory : DefaultTask() {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val sourceDir: DirectoryProperty
 
+    @get:Input
+    abstract val includedChannels: ListProperty<String>
+
     @get:OutputDirectory
     abstract val outputDir: DirectoryProperty
 
@@ -32,8 +34,18 @@ abstract class SyncAssetDirectory : DefaultTask() {
     fun sync() {
         val output = outputDir.get().asFile
         project.delete(output)
+        for (channel in includedChannels.get()) {
+            val manifest = sourceDir.file("channels/$channel.json").get().asFile
+            require(manifest.isFile) {
+                "Model manifest channel '$channel' not found at ${manifest.absolutePath}"
+            }
+        }
         project.copy {
-            from(sourceDir)
+            from(sourceDir) {
+                for (channel in includedChannels.get()) {
+                    include("channels/$channel.json")
+                }
+            }
             into(output)
         }
     }
@@ -101,41 +113,19 @@ val nativeDepsRootPath = nativeDepsProperties.getProperty("ZEPHR_NATIVE_DEPS_ROO
 val nativeDepsRecipeHash = nativeDepsProperties.getProperty("ZEPHR_NATIVE_DEPS_RECIPE_HASH")
     ?: error("ZEPHR_NATIVE_DEPS_RECIPE_HASH missing from native deps bridge. Run: uv run prepare_dev")
 
-fun parseVersionFromGithubTag(tag: String): String {
-    val trimmed = tag.trim()
-    if (trimmed.isEmpty()) {
-        return "0.0.3-SNAPSHOT"
+val sdkModelManifestChannels = providers.gradleProperty("zephrModelManifestChannels")
+    .map {
+        it.split(",")
+            .map { channel -> channel.trim() }
+            .filter { channel -> channel.isNotEmpty() }
     }
-    val match = Regex(""".*?(\d+\.\d+\.\d+)$""").matchEntire(trimmed)
-        ?: error("github.tag '$trimmed' must end with a semantic version like 0.1.2")
-    return match.groupValues[1]
-}
-
-val sdkPrivateGroupIdSuffix = providers.gradleProperty("zephrGroupIdSuffix")
-    .orElse(providers.gradleProperty("zephr_developer_name"))
-    .map { it.trim().ifEmpty { "unknown_buildenv" } }
-    .orElse("unknown_buildenv")
-val sdkGroupId = providers.gradleProperty("zephrSdkGroupId")
-    .orElse(sdkPrivateGroupIdSuffix.map { "xyz.zephr.sdks.agent.$it" })
-val sdkArtifactId = providers.gradleProperty("zephrSdkArtifactId")
-    .orElse("zephr-agent-runtime")
-val sdkVersion = providers.gradleProperty("zephrSdkVersion")
-    .orElse(providers.gradleProperty("github.tag").map(::parseVersionFromGithubTag))
-    .orElse("0.0.3-SNAPSHOT")
-val sdkPrivateMavenUrl = providers.gradleProperty("zephrPrivateMavenUrl")
-    .orElse("artifactregistry://us-central1-maven.pkg.dev/zephr-xyz-firebase-development/maven-repo")
+    .orElse(listOf("public"))
 
 android {
     namespace = "xyz.zephr.sdks.agent"
     compileSdk = platformVersion("compile_sdk").toInt()
     buildToolsVersion = platformVersion("build_tools")
     ndkVersion = platformVersion("ndk")
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
 
     defaultConfig {
         minSdk = platformVersion("min_sdk").toInt()
@@ -169,6 +159,7 @@ androidComponents {
         val capitalized = variant.name.replaceFirstChar { it.uppercase() }
         val syncAssets = tasks.register<SyncAssetDirectory>("sync${capitalized}ModelManifestAssets") {
             sourceDir.set(rootProject.layout.projectDirectory.dir("../data/model_manifests"))
+            includedChannels.set(sdkModelManifestChannels)
             outputDir.set(layout.buildDirectory.dir("generated/assets/modelManifests/${variant.name}"))
         }
         variant.sources.assets?.addGeneratedSourceDirectory(
@@ -197,68 +188,4 @@ dependencies {
     implementation("io.ktor:ktor-client-okhttp:3.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
     testImplementation("junit:junit:4.13.2")
-}
-
-publishing {
-    repositories {
-        maven {
-            name = "PrivateArtifactRegistry"
-            url = uri(sdkPrivateMavenUrl.get())
-        }
-    }
-
-    publications {
-        create<MavenPublication>("AarPrivate") {
-            groupId = sdkGroupId.get()
-            artifactId = sdkArtifactId.get()
-            version = sdkVersion.get()
-
-            afterEvaluate {
-                from(components["release"])
-            }
-
-            pom {
-                name.set("Zephr Agent Runtime")
-                description.set("Android SDK wrapper for the Zephr Agent native runtime")
-                url.set("https://github.com/zephr-xyz/diagnostics")
-
-                licenses {
-                    license {
-                        name.set("Proprietary")
-                        distribution.set("repo")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("zephr-team")
-                        name.set("Zephr Development Team")
-                        email.set("support@zephr.xyz")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/zephr-xyz/diagnostics.git")
-                    developerConnection.set("scm:git:ssh://github.com/zephr-xyz/diagnostics.git")
-                    url.set("https://github.com/zephr-xyz/diagnostics")
-                }
-            }
-        }
-    }
-}
-
-tasks.register("printZephrAgentRuntimePublicationCoordinates") {
-    group = "publishing"
-    description = "Prints the private Maven coordinates that will be published for the SDK AAR."
-
-    doLast {
-        println("${sdkGroupId.get()}:${sdkArtifactId.get()}:${sdkVersion.get()}")
-        println("repository: ${sdkPrivateMavenUrl.get()}")
-    }
-}
-
-tasks.register("publishZephrAgentRuntimeAar") {
-    group = "publishing"
-    description = "Builds and publishes the release Zephr Agent Runtime AAR to the private Maven repository."
-    dependsOn("publishAarPrivatePublicationToPrivateArtifactRegistryRepository")
 }

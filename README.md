@@ -196,6 +196,33 @@ Generated local outputs live under `1_build/` and `2_output/`. Shared native
 dependency artifacts are stored under
 `/opt/zephr/diagnosis/native_dependencies/zephragent`.
 
+## Use the Prebuilt Android AAR
+
+For Android apps, the runtime is published on Maven Central:
+
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+```
+
+```kotlin
+dependencies {
+    implementation("xyz.zephr.sdks.agent:zephr-agent-runtime:0.0.5")
+}
+```
+
+The AAR includes the Android runtime bridge, native LiteRT libraries, and the
+public model manifest:
+
+```kotlin
+import xyz.zephr.sdks.agent.litertlm.Engine
+import xyz.zephr.sdks.agent.litertlm.EngineConfig
+```
+
 ## Development Setup
 
 ```bash

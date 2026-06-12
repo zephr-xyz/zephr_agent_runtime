@@ -38,11 +38,32 @@
       "title": "Gemma 4 E2B",
       "url": "https://pub-cc0f77f9259d486a8a1b87a1031b7fb3.r2.dev/zephr-agent/models/gemma4/181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c/gemma-4-E2B-it.litertlm",
       "version": "gemma-4-E2B-it"
+    },
+    "gemma4.e2b_apple_metal": {
+      "capabilities": [
+        "text",
+        "vlm"
+      ],
+      "family": "gemma4",
+      "filename": "gemma-4-E2B-it-apple-metal.litertlm",
+      "metadata": {
+        "source_artifact": "gemma4.e2b",
+        "variant": "apple_metal",
+        "vision_adapter_signature": "vision_adapter_70",
+        "vision_encoder_composites": "inlined",
+        "vision_encoder_signature": "vision_70"
+      },
+      "role": "text",
+      "sha256": "64df4c5938c4604ce6f9225ea140d0aeff51135b7c2f1c18923a81802a99242b",
+      "size_bytes": 2479479632,
+      "title": "Gemma 4 E2B Apple Metal",
+      "url": "https://pub-cc0f77f9259d486a8a1b87a1031b7fb3.r2.dev/zephr-agent/models/gemma4/64df4c5938c4604ce6f9225ea140d0aeff51135b7c2f1c18923a81802a99242b/gemma-4-E2B-it-apple-metal.litertlm",
+      "version": "gemma-4-E2B-it-apple-metal"
     }
   },
   "channel": "public",
-  "created_at": "2026-06-11T21:59:24.920053+00:00",
-  "id": "zephr-agent-models-v3-public-d803f7f44970",
+  "created_at": "2026-06-12T05:00:42.729530+00:00",
+  "id": "zephr-agent-models-v3-public-cac69f040a31",
   "roles": {
     "embedding": {
       "platform_choices": {
@@ -297,7 +318,7 @@
           {
             "components": [
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.decoder",
                 "reason": "gpu execution plan selects GPU decoder",
@@ -305,7 +326,7 @@
                 "target": "gpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.embedder",
                 "reason": "Gemma4 token embedding runs on CPU",
@@ -313,7 +334,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.ple",
                 "reason": "Gemma4 PLE runs on CPU",
@@ -397,7 +418,7 @@
           {
             "components": [
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.decoder",
                 "reason": "gpu execution plan selects GPU decoder",
@@ -405,7 +426,7 @@
                 "target": "gpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.embedder",
                 "reason": "Gemma4 token embedding runs on CPU",
@@ -413,7 +434,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.ple",
                 "reason": "Gemma4 PLE runs on CPU",
@@ -429,7 +450,7 @@
           {
             "components": [
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.decoder",
                 "reason": "cpu execution plan selects CPU decoder",
@@ -437,7 +458,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.embedder",
                 "reason": "Gemma4 token embedding runs on CPU",
@@ -445,7 +466,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.ple",
                 "reason": "Gemma4 PLE runs on CPU",
@@ -600,7 +621,7 @@
           {
             "components": [
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.decoder",
                 "reason": "gpu execution plan selects GPU decoder",
@@ -608,7 +629,7 @@
                 "target": "gpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.embedder",
                 "reason": "Gemma4 token embedding runs on CPU",
@@ -616,7 +637,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.ple",
                 "reason": "Gemma4 PLE runs on CPU",
@@ -624,17 +645,16 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.encoder",
-                "reason": "Metal vision encoder disabled on iOS until stable",
-                "requested_target": "gpu",
+                "reason": "gpu execution plan selects GPU vision encoder",
                 "role": "vision",
                 "signature": "vision_70",
-                "target": "cpu"
+                "target": "gpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.adapter",
                 "reason": "vision adapter runs on CPU",
@@ -643,7 +663,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.eoi",
                 "reason": "EOI embedding runs on CPU",
@@ -794,7 +814,7 @@
           {
             "components": [
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.decoder",
                 "reason": "cpu execution plan selects CPU decoder",
@@ -802,7 +822,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.embedder",
                 "reason": "Gemma4 token embedding runs on CPU",
@@ -810,7 +830,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.ple",
                 "reason": "Gemma4 PLE runs on CPU",
@@ -818,7 +838,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.encoder",
                 "reason": "cpu execution plan selects CPU vision encoder",
@@ -827,7 +847,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.adapter",
                 "reason": "vision adapter runs on CPU",
@@ -836,7 +856,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.eoi",
                 "reason": "EOI embedding runs on CPU",
@@ -853,7 +873,7 @@
           {
             "components": [
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.decoder",
                 "reason": "gpu execution plan selects GPU decoder",
@@ -861,7 +881,7 @@
                 "target": "gpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.embedder",
                 "reason": "Gemma4 token embedding runs on CPU",
@@ -869,7 +889,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4.ple",
                 "reason": "Gemma4 PLE runs on CPU",
@@ -877,7 +897,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.encoder",
                 "reason": "gpu execution plan selects GPU vision encoder",
@@ -886,7 +906,7 @@
                 "target": "gpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.adapter",
                 "reason": "vision adapter runs on CPU",
@@ -895,7 +915,7 @@
                 "target": "cpu"
               },
               {
-                "artifact": "gemma4.e2b",
+                "artifact": "gemma4.e2b_apple_metal",
                 "family": "gemma4",
                 "id": "gemma4_vision.eoi",
                 "reason": "EOI embedding runs on CPU",

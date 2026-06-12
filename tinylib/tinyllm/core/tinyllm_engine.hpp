@@ -37,12 +37,7 @@ struct ModelLifecycleTiming {
 static inline VlmExecutionTargets vlm_execution_targets(Platform platform,
                                                         const std::string& plan) {
     const HardwareTarget requested = parse_hardware_target(plan.c_str());
-    // iOS Metal currently fails to prepare the Gemma4 vision encoder after
-    // other model compilations. Keep the public choice as "VLM GPU", but run
-    // the text decoder on GPU and the vision encoder on CPU until stable.
-    if (platform == Platform::APPLE_OS && requested == HardwareTarget::GPU) {
-        return VlmExecutionTargets{HardwareTarget::CPU, HardwareTarget::GPU};
-    }
+    (void)platform;
     return VlmExecutionTargets{requested, requested};
 }
 
@@ -528,14 +523,6 @@ struct TinyLLMEngine {
                 encoder_hw, has_end_of_vision)
             : gemma4::vision_runtime_components(
                 decoder_hw, encoder_hw, has_end_of_vision);
-        if (platform == Platform::APPLE_OS &&
-            decoder_hw == HardwareTarget::GPU &&
-            encoder_hw == HardwareTarget::CPU) {
-            tinylog::logger().info("VLM GPU uses CPU vision encoder on Apple",
-                {{"requested_plan", std::string("gpu")},
-                 {"components", components},
-                 {"reason", std::string("Metal vision_encoder is disabled until stable")}});
-        }
         tinylog::logger().info("TinyLLMEngine: VLM initializing",
             {{"path", std::string(vlm_model_path)},
              {"env", std::string("shared")},
