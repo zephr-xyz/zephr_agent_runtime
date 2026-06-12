@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import os
 import platform
+import re
 import shutil
 import sys
 from dataclasses import dataclass
@@ -44,7 +45,7 @@ from clis.tinylib.tinylog import log
 CMAKELISTS_DIR = REPO_ROOT / "clis" / "support" / "nanobind"
 BUILD_DIR = REPO_ROOT / "1_build" / "cmake"
 INSTALL_DIRS = (
-    REPO_ROOT / "clis" / "zephr_agent" / "nanobind",
+    REPO_ROOT / "clis" / "zephr_agent_runtime" / "nanobind",
     REPO_ROOT / "clis" / "zephr_agent_tools" / "nanobind",
 )
 
@@ -113,6 +114,39 @@ def _cmake_cache_source_dir(cache: Path) -> Path | None:
     return None
 
 
+def _current_native_deps_marker() -> str:
+    bridge = REPO_ROOT / "1_build" / "native_deps" / "native_deps.cmake"
+    if not bridge.is_file():
+        return ""
+    values: dict[str, str] = {}
+    for line in bridge.read_text(errors="replace").splitlines():
+        match = re.match(r'set\((ZEPHR_NATIVE_DEPS_[A-Z_]+) "([^"]*)"\)', line)
+        if match:
+            values[match.group(1)] = match.group(2)
+    return "|".join(
+        values.get(key, "")
+        for key in (
+            "ZEPHR_NATIVE_DEPS_ROOT",
+            "ZEPHR_NATIVE_DEPS_RECIPE_HASH",
+            "ZEPHR_NATIVE_DEPS_HOST_PLATFORM",
+        )
+    )
+
+
+def _remove_install_artifacts(install_dirs: tuple[Path, ...], *, verbose: bool) -> None:
+    for install_dir in install_dirs:
+        for pattern in (
+            "zephr_agent_runtime_nanobind*.so",
+            "zephr_agent_runtime_nanobind*.pyi",
+            "zephr_agent_tools_nanobind*.so",
+            "zephr_agent_tools_nanobind*.pyi",
+        ):
+            for artifact in sorted(install_dir.glob(pattern)):
+                if verbose:
+                    log.debug("removing nanobind installed artifact", path=artifact)
+                artifact.unlink()
+
+
 def plan_rebuild(
     CMAKE_BUILD_TYPE: Annotated[Literal["Release", "Debug"] | None, "build type"] = None,
     clean: Annotated[bool, "clean build artifacts before rebuilding"] = False,
@@ -144,12 +178,7 @@ async def run_rebuild(plan: RebuildPlan) -> None:
             if plan.verbose:
                 log.debug("removing nanobind build directory", path=parent)
             shutil.rmtree(parent)
-        for install_dir in plan.install_dirs:
-            for pattern in ("zephr_agent_runtime_nanobind*.so", "zephr_agent_tools_nanobind*.so"):
-                for artifact in sorted(install_dir.glob(pattern)):
-                    if plan.verbose:
-                        log.debug("removing nanobind extension", path=artifact)
-                    artifact.unlink()
+        _remove_install_artifacts(plan.install_dirs, verbose=plan.verbose)
 
     if not plan.clean and not plan.dry_run:
         cache_source = _cmake_cache_source_dir(plan.build_dir / "CMakeCache.txt")
@@ -162,6 +191,16 @@ async def run_rebuild(plan: RebuildPlan) -> None:
                 expected_source=expected_source,
             )
             shutil.rmtree(plan.build_dir)
+        marker = plan.build_dir / ".native_deps_marker"
+        expected_marker = _current_native_deps_marker()
+        cached_marker = marker.read_text(errors="replace") if marker.is_file() else ""
+        if plan.build_dir.exists() and expected_marker and cached_marker != expected_marker:
+            log.debug(
+                "removing nanobind build directory for native deps change",
+                build_dir=plan.build_dir,
+            )
+            shutil.rmtree(plan.build_dir)
+            _remove_install_artifacts(plan.install_dirs, verbose=plan.verbose)
 
     if not plan.dry_run:
         log.debug(
@@ -192,6 +231,11 @@ async def run_rebuild(plan: RebuildPlan) -> None:
         "--target", "install",
         "-j", str(plan.concurrency),
     ])
+    if not plan.dry_run:
+        (plan.build_dir / ".native_deps_marker").write_text(
+            _current_native_deps_marker(),
+            encoding="utf-8",
+        )
 
     compile_db = plan.build_dir / "compile_commands.json"
     link = REPO_ROOT / "compile_commands.json"
