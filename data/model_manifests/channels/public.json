@@ -1,0 +1,918 @@
+{
+  "artifacts": {
+    "embedding.gemma3_300m_seq256": {
+      "family": "gemma3_embedding",
+      "filename": "rag_embedding_gemma_300m_seq256.litertlm",
+      "role": "embedding",
+      "sha256": "16d44057d641045886747076a1d03a8d1f15fc8dbea0d616690ad6dc6c1ca305",
+      "size_bytes": 183844864,
+      "title": "Gemma 3 Embedding",
+      "url": "https://pub-cc0f77f9259d486a8a1b87a1031b7fb3.r2.dev/zephr-agent/models/gemma3_embedding/16d44057d641045886747076a1d03a8d1f15fc8dbea0d616690ad6dc6c1ca305/rag_embedding_gemma_300m_seq256.litertlm",
+      "version": "embeddinggemma-300M_seq256_mixed-precision"
+    },
+    "embedding.gemma3_300m_seq256_npu.google_tensor_g4": {
+      "family": "gemma3_embedding",
+      "filename": "rag_embedding_gemma_300m_seq256_npu_google_tensor_g4.litertlm",
+      "metadata": {
+        "hardware_target": "google_tensor_g4",
+        "source_artifact": "embedding.gemma3_300m_seq256",
+        "variant": "npu.google_tensor_g4"
+      },
+      "role": "embedding",
+      "sha256": "bdcb9f0208e822fd2b50deeda2edd0da29004aa35328ad3715c9c333a17a075e",
+      "size_bytes": 196067328,
+      "title": "Gemma 3 Embedding NPU",
+      "url": "https://pub-cc0f77f9259d486a8a1b87a1031b7fb3.r2.dev/zephr-agent/models/gemma3_embedding/bdcb9f0208e822fd2b50deeda2edd0da29004aa35328ad3715c9c333a17a075e/rag_embedding_gemma_300m_seq256_npu_google_tensor_g4.litertlm",
+      "version": "rag_embedding_gemma_300m_seq256_npu_google_tensor_g4"
+    },
+    "gemma4.e2b": {
+      "capabilities": [
+        "text",
+        "vlm"
+      ],
+      "family": "gemma4",
+      "filename": "gemma-4-E2B-it.litertlm",
+      "role": "text",
+      "sha256": "181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c",
+      "size_bytes": 2588147712,
+      "title": "Gemma 4 E2B",
+      "url": "https://pub-cc0f77f9259d486a8a1b87a1031b7fb3.r2.dev/zephr-agent/models/gemma4/181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c/gemma-4-E2B-it.litertlm",
+      "version": "gemma-4-E2B-it"
+    }
+  },
+  "channel": "public",
+  "created_at": "2026-06-11T21:59:24.920053+00:00",
+  "id": "zephr-agent-models-v3-public-d803f7f44970",
+  "roles": {
+    "embedding": {
+      "platform_choices": {
+        "android": [
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "cpu execution plan selects CPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "cpu"
+              }
+            ],
+            "id": "embedding.gemma3.cpu",
+            "label": "Gemma 3 Embedding CPU",
+            "requested_plan": "cpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "gpu execution plan selects GPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "gpu"
+              }
+            ],
+            "id": "embedding.gemma3.gpu",
+            "label": "Gemma 3 Embedding GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256_npu.google_tensor_g4",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "npu execution plan selects NPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "npu"
+              }
+            ],
+            "id": "embedding.gemma3.npu",
+            "label": "Gemma 3 Embedding NPU",
+            "requested_plan": "npu"
+          },
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          }
+        ],
+        "ios": [
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "cpu execution plan selects CPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "cpu"
+              }
+            ],
+            "id": "embedding.gemma3.cpu",
+            "label": "Gemma 3 Embedding CPU",
+            "requested_plan": "cpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "gpu execution plan selects GPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "gpu"
+              }
+            ],
+            "id": "embedding.gemma3.gpu",
+            "label": "Gemma 3 Embedding GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          }
+        ],
+        "linux": [
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "cpu execution plan selects CPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "cpu"
+              }
+            ],
+            "id": "embedding.gemma3.cpu",
+            "label": "Gemma 3 Embedding CPU",
+            "requested_plan": "cpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "gpu execution plan selects GPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "gpu"
+              }
+            ],
+            "id": "embedding.gemma3.gpu",
+            "label": "Gemma 3 Embedding GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          }
+        ],
+        "macos": [
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "cpu execution plan selects CPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "cpu"
+              }
+            ],
+            "id": "embedding.gemma3.cpu",
+            "label": "Gemma 3 Embedding CPU",
+            "requested_plan": "cpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "embedding.gemma3_300m_seq256",
+                "family": "gemma3_embedding",
+                "id": "embedding.gemma3",
+                "reason": "gpu execution plan selects GPU embedding",
+                "role": "embedding",
+                "signature": "embed_256",
+                "target": "gpu"
+              }
+            ],
+            "id": "embedding.gemma3.gpu",
+            "label": "Gemma 3 Embedding GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          }
+        ]
+      },
+      "required": false
+    },
+    "text": {
+      "platform_choices": {
+        "android": [
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.gpu",
+            "label": "Gemma 4 GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "cpu execution plan selects CPU decoder",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.cpu",
+            "label": "Gemma 4 CPU",
+            "requested_plan": "cpu"
+          }
+        ],
+        "ios": [
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.gpu",
+            "label": "Gemma 4 GPU",
+            "requested_plan": "gpu"
+          }
+        ],
+        "linux": [
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.gpu",
+            "label": "Gemma 4 GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "cpu execution plan selects CPU decoder",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.cpu",
+            "label": "Gemma 4 CPU",
+            "requested_plan": "cpu"
+          }
+        ],
+        "macos": [
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.gpu",
+            "label": "Gemma 4 GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "cpu execution plan selects CPU decoder",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4.cpu",
+            "label": "Gemma 4 CPU",
+            "requested_plan": "cpu"
+          }
+        ]
+      },
+      "required": true
+    },
+    "vlm": {
+      "platform_choices": {
+        "android": [
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "gpu execution plan selects GPU vision encoder",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.gpu",
+            "label": "Gemma 4 Vision GPU",
+            "requested_plan": "gpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "cpu execution plan selects CPU decoder",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "cpu execution plan selects CPU vision encoder",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.cpu",
+            "label": "Gemma 4 Vision CPU",
+            "requested_plan": "cpu"
+          }
+        ],
+        "ios": [
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "Metal vision encoder disabled on iOS until stable",
+                "requested_target": "gpu",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.gpu",
+            "label": "Gemma 4 Vision GPU",
+            "requested_plan": "gpu"
+          }
+        ],
+        "linux": [
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "cpu execution plan selects CPU decoder",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "cpu execution plan selects CPU vision encoder",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.cpu",
+            "label": "Gemma 4 Vision CPU",
+            "requested_plan": "cpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "gpu execution plan selects GPU vision encoder",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.gpu",
+            "label": "Gemma 4 Vision GPU",
+            "requested_plan": "gpu"
+          }
+        ],
+        "macos": [
+          {
+            "components": [],
+            "id": "off",
+            "label": "Off",
+            "requested_plan": "off"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "cpu execution plan selects CPU decoder",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "cpu execution plan selects CPU vision encoder",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.cpu",
+            "label": "Gemma 4 Vision CPU",
+            "requested_plan": "cpu"
+          },
+          {
+            "components": [
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.decoder",
+                "reason": "gpu execution plan selects GPU decoder",
+                "role": "text",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.embedder",
+                "reason": "Gemma4 token embedding runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4.ple",
+                "reason": "Gemma4 PLE runs on CPU",
+                "role": "text",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.encoder",
+                "reason": "gpu execution plan selects GPU vision encoder",
+                "role": "vision",
+                "signature": "vision_70",
+                "target": "gpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.adapter",
+                "reason": "vision adapter runs on CPU",
+                "role": "vision",
+                "signature": "vision_adapter_70",
+                "target": "cpu"
+              },
+              {
+                "artifact": "gemma4.e2b",
+                "family": "gemma4",
+                "id": "gemma4_vision.eoi",
+                "reason": "EOI embedding runs on CPU",
+                "role": "vision",
+                "signature": "eoi",
+                "target": "cpu"
+              }
+            ],
+            "family": "gemma4",
+            "id": "gemma4_vision.gpu",
+            "label": "Gemma 4 Vision GPU",
+            "requested_plan": "gpu"
+          }
+        ]
+      },
+      "required": false
+    }
+  },
+  "schema_version": 5
+}

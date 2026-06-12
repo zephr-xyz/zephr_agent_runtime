@@ -1,0 +1,8 @@
+// Shared Debug build settings.
+// Local assistant secrets are intentionally optional so clean checkouts build.
+
+ZEPHR_ASSISTANT_API_KEY =
+ZEPHR_DIAGNOSTIC_API_KEY =
+
+#include "../../1_build/native_deps/native_deps.xcconfig"
+#include? "../apps/zephr_assistant/secrets.xcconfig"

@@ -1,0 +1,15 @@
+.DS_Store
+.venv/
+.mypy_cache/
+.pytest_cache/
+1_build/
+2_output/
+android/.gradle/
+android/local.properties
+android/**/src/main/cpp/native_deps_android/
+android/**/src/main/cpp/tinylib/
+android/**/build/
+android/**/.cxx/
+apple/*.xcodeproj/
+clis/**/__pycache__/
+clis/zephr_agent_runtime/nanobind/*.so

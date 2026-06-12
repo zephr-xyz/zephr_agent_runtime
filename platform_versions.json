@@ -1,0 +1,9 @@
+{
+  "android": {
+    "build_tools": "36.0.0",
+    "cmake": "3.30.5",
+    "compile_sdk": "36",
+    "min_sdk": "26",
+    "ndk": "27.2.12479018"
+  }
+}

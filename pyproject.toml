@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "zephr-agent-runtime"
+version = "0.0.1"
+requires-python = "==3.13.*"
+dependencies = ["anyio", "psutil"]
+
+[dependency-groups]
+dev = ["pytest", "mypy", "nanobind", "types-psutil"]
+litert-support = [
+    "ai-edge-litert-nightly[model-utils]",
+    "flatbuffers",
+]
+
+[tool.uv]
+python-preference = "only-managed"
+default-groups = ["dev", "litert-support"]
+
+[project.scripts]
+prepare_native_deps = "clis.prepare_native_deps:main"
+rebuild_tinyllm = "clis.rebuild_tinyllm:main"
+prepare_platform_tools = "clis.prepare_platform_tools:main"
+prepare_dev = "clis.prepare_dev:main"
+
+[tool.mypy]
+packages = ["clis"]
+
+[tool.pytest.ini_options]
+testpaths = ["clis"]
+norecursedirs = [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".venv",
+    "0_native_deps",
+    "1_build",
+    "2_output",
+    "android",
+    "apple",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["clis"]
